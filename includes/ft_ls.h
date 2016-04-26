@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/24 17:35:46 by adubedat          #+#    #+#             */
-/*   Updated: 2016/04/26 14:39:59 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/04/26 16:22:05 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct	s_options
 	int			f;
 	int			g;
 	int			d;
+	char		**files;
 }				t_options;
 
 t_options		get_options(int argc, char **argv);

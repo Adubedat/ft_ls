@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 14:09:13 by adubedat          #+#    #+#             */
-/*   Updated: 2016/04/26 14:56:54 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/04/26 17:31:01 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static void	initialize_options(t_options *options)
 	options->f = 0;
 	options->g = 0;
 	options->d = 0;
+	options->files = NULL;
 }
 
 static void	error_option(char c)
@@ -57,6 +58,33 @@ static void	flag_options(t_options *options, char c)
 		options->d = 1;
 }
 
+static void	get_files(int i, t_options *options, int argc, char **argv)
+{
+	int			j;
+	struct stat check;
+
+	j = 0;
+	options->files = (char**)malloc(sizeof(char*) * (argc - i) + 1);
+	if (argc - i == 0)
+	{
+		options->files = (char**)malloc(sizeof(char*) * 2);
+		options->files[j] = ft_strdup(".");
+		j++;
+	}
+	while (argv[i])
+	{
+		if (stat(argv[i], &check) == -1)
+			ft_printf("ls: %s: No such file or directory\n", argv[i]);
+		else
+		{
+			options->files[j] = ft_strdup(argv[i]);
+			j++;
+		}
+		i++;
+	}
+	options->files[j] = NULL;
+}
+
 t_options	get_options(int argc, char **argv)
 {
 	int			i;
@@ -65,20 +93,23 @@ t_options	get_options(int argc, char **argv)
 
 	i = 1;
 	initialize_options(&options);
-	while (i < argc)
+	while (argv[i])
 	{
-		j = 0;
+		j = -1;
 		if (argv[i][0] != '-')
+		{
+			get_files(i, &options, argc, argv);
 			return (options);
+		}
 		j++;
-		while (argv[i][j])
+		while (argv[i][++j])
 		{
 			if (ft_strchr("lrRatGufgd", argv[i][j]) == NULL)
 				error_option(argv[i][j]);
 			flag_options(&options, argv[i][j]);
-			j++;
 		}
 		i++;
 	}
+	get_files(i, &options, argc, argv);
 	return (options);
 }
