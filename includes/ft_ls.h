@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/24 17:35:46 by adubedat          #+#    #+#             */
-/*   Updated: 2016/05/10 23:41:31 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/11 00:02:33 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ typedef struct	s_options
 {
 	int			l;
 	int			r;
-	int			R;
+	int			maj_r;
 	int			a;
 	int			t;
-	int			G;
+	int			maj_g;
 	int			u;
 	int			f;
 	int			g;
