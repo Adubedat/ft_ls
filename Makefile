@@ -6,22 +6,24 @@
 #    By: tvermeil <tvermeil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/18 19:13:31 by tvermeil          #+#    #+#              #
-#    Updated: 2016/04/24 17:31:46 by adubedat         ###   ########.fr        #
+#    Updated: 2016/05/10 23:16:47 by adubedat         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 MAKEFLAGS += --no-print-directory
 
 SUB_MAKEFILES = libft \
-				sources \
+				src \
 
-all: libft.a ft_ls
+all:
+	@make -C libft all
+	@make -C src all
 
 libft.a:
 	@make -C libft all
 
 ft_ls:
-	@make -C sources all
+	@make -C src all
 
 clean:
 	@-for i in $(SUB_MAKEFILES) ; do \
@@ -29,7 +31,7 @@ clean:
 	done
 	@rmdir obj 2> /dev/null || true
 
-fclean: clean
+fclean:
 	@for i in $(SUB_MAKEFILES) ; do \
 		make -C $$i fclean; \
 	done

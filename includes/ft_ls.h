@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/24 17:35:46 by adubedat          #+#    #+#             */
-/*   Updated: 2016/04/26 16:22:05 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/10 23:41:31 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <dirent.h>
+# include <sys/ioctl.h>
 
 typedef struct	s_options
 {
@@ -30,8 +31,10 @@ typedef struct	s_options
 	int			g;
 	int			d;
 	char		**files;
+	char		**rep;
 }				t_options;
 
 t_options		get_options(int argc, char **argv);
+void			sort_by_ascii(char **tab, int i);
 
 #endif
