@@ -6,18 +6,18 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/31 12:30:58 by adubedat          #+#    #+#             */
-/*   Updated: 2016/01/04 19:13:04 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/11 20:31:58 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-t_flags		check_first_flag(t_flags f)
+t_flags		check_first_flag(t_flags f, va_list args)
 {
 	if (ft_strchr("#0- +", f.param[f.j]) == NULL
-			&& ft_strchr(".123456789hljz", f.param[f.j]) != NULL)
-		return (check_second_flag(f));
-	else if (ft_strchr("#0 -+.123456789hljz", f.param[f.j]) == NULL)
+			&& ft_strchr(".*123456789hljz", f.param[f.j]) != NULL)
+		return (check_second_flag(f, args));
+	else if (ft_strchr("#0 -*+.123456789hljz", f.param[f.j]) == NULL)
 		return (f);
 	else
 	{
@@ -37,7 +37,7 @@ t_flags		check_first_flag(t_flags f)
 		else if (f.param[f.j] == '+')
 			f = check_first_flag2(f);
 		f.j++;
-		return (check_first_flag(f));
+		return (check_first_flag(f, args));
 	}
 }
 
@@ -52,25 +52,33 @@ t_flags		check_first_flag2(t_flags f)
 	return (f);
 }
 
-t_flags		check_second_flag(t_flags f)
+t_flags		check_second_flag(t_flags f, va_list args)
 {
-	if (!(f.param[f.j] >= '0' && f.param[f.j] <= '9'))
-		return (check_third_flag(f));
+	if (!(f.param[f.j] >= '0' && f.param[f.j] <= '9') && f.param[f.j] != '*')
+		return (check_third_flag(f, args));
 	else
 	{
-		while (f.param[f.j] >= '0' && f.param[f.j] <= '9')
+		if (f.param[f.j] == '*')
 		{
-			f.width = f.width * 10 + f.param[f.j] - '0';
+			f.width = va_arg(args, int);
 			f.j++;
 		}
-		return (check_first_flag(f));
+		else
+		{
+			while (f.param[f.j] >= '0' && f.param[f.j] <= '9')
+			{
+				f.width = f.width * 10 + f.param[f.j] - '0';
+				f.j++;
+			}
+		}
+		return (check_first_flag(f, args));
 	}
 }
 
-t_flags		check_third_flag(t_flags f)
+t_flags		check_third_flag(t_flags f, va_list args)
 {
 	if (f.param[f.j] != '.')
-		return (check_fourth_flag(f));
+		return (check_fourth_flag(f, args));
 	else
 	{
 		f.precision = 0;
@@ -80,16 +88,16 @@ t_flags		check_third_flag(t_flags f)
 			f.precision = f.precision * 10 + f.param[f.j] - '0';
 			f.j++;
 		}
-		return (check_first_flag(f));
+		return (check_first_flag(f, args));
 	}
 }
 
-t_flags		check_fourth_flag(t_flags f)
+t_flags		check_fourth_flag(t_flags f, va_list args)
 {
 	if (ft_strchr("hljz", f.param[f.j]) == NULL)
 	{
 		f.j++;
-		return (check_first_flag(f));
+		return (check_first_flag(f, args));
 	}
 	else
 	{
@@ -107,6 +115,6 @@ t_flags		check_fourth_flag(t_flags f)
 		else if (f.param[f.j] == 'z' && f.modifier == 0)
 			f.modifier = 6;
 		f.j++;
-		return (check_first_flag(f));
+		return (check_first_flag(f, args));
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/23 13:34:26 by adubedat          #+#    #+#             */
-/*   Updated: 2015/11/23 13:55:17 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/11 19:35:38 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	ft_putstr(char const *s)
 	int i;
 
 	i = 0;
+	if (s == NULL)
+		return ;
 	while (s[i] != '\0')
 	{
 		ft_putchar(s[i]);

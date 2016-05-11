@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/28 17:23:10 by adubedat          #+#    #+#             */
-/*   Updated: 2016/04/18 20:55:38 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/11 20:09:34 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,11 @@ int							distrib(const char *str, int i, va_list args,
 		int result);
 int							string_conv(va_list args, t_flags f);
 t_flags						init_flags(t_flags f);
-t_flags						check_first_flag(t_flags f);
+t_flags						check_first_flag(t_flags f, va_list args);
 t_flags						check_first_flag2(t_flags f);
-t_flags						check_second_flag(t_flags f);
-t_flags						check_third_flag(t_flags f);
-t_flags						check_fourth_flag(t_flags f);
+t_flags						check_second_flag(t_flags f, va_list args);
+t_flags						check_third_flag(t_flags f, va_list args);
+t_flags						check_fourth_flag(t_flags f, va_list args);
 int							signed_conv(va_list args, t_flags f);
 char						*signed_conv2(char *str, va_list args, t_flags f,
 		t_modifier m);

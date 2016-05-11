@@ -6,7 +6,7 @@
 #    By: adubedat <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/04/23 17:07:31 by adubedat          #+#    #+#              #
-#    Updated: 2016/05/10 23:20:00 by adubedat         ###   ########.fr        #
+#    Updated: 2016/05/11 23:23:15 by adubedat         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ DST_PATH = $(ROOT)
 LFT_PATH = $(ROOT)/libft
 
 CC = gcc -g
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall #-Wextra -Werror
 CPPFLAGS = $(addprefix -I ,$(INC_PATH))
 LDFLAGS = -L$(LFT_PATH)
 LDLIBS = -lft
@@ -33,6 +33,8 @@ LDLIBS = -lft
 SRC_NAME =	main.c \
 			options.c \
 			sort.c \
+			print_files.c \
+			print_rep.c \
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 

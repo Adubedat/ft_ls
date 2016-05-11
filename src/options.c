@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 14:09:13 by adubedat          #+#    #+#             */
-/*   Updated: 2016/05/11 00:02:06 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/11 23:27:04 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,17 @@ static void	initialize_options(t_options *options)
 {
 	options->l = 0;
 	options->r = 0;
-	options->R = 0;
+	options->maj_r = 0;
 	options->a = 0;
 	options->t = 0;
-	options->G = 0;
+	options->maj_g = 0;
 	options->u = 0;
 	options->f = 0;
 	options->g = 0;
 	options->d = 0;
+	options->flag = 0;
 	options->files = NULL;
+	options->rep = NULL;
 }
 
 static void	error_option(char c)
@@ -41,13 +43,13 @@ static void	flag_options(t_options *options, char c)
 	else if (c == 'r')
 		options->r = 1;
 	else if (c == 'R')
-		options->R = 1;
+		options->maj_r = 1;
 	else if (c == 'a')
 		options->a = 1;
 	else if (c == 't')
 		options->t = 1;
 	else if (c == 'G')
-		options->G = 1;
+		options->maj_g = 1;
 	else if (c == 'u')
 		options->u = 1;
 	else if (c == 'f')
