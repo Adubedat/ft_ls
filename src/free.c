@@ -1,31 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/04/24 17:33:49 by adubedat          #+#    #+#             */
-/*   Updated: 2016/05/31 18:37:23 by adubedat         ###   ########.fr       */
+/*   Created: 2016/05/31 18:02:15 by adubedat          #+#    #+#             */
+/*   Updated: 2016/05/31 20:14:05 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-int main(int argc, char **argv)
+void	free_list(t_files *list)
 {
-	t_options	options;
+	t_files *tmp;
 
-	options = get_options(argc, argv);
-	sort_by_ascii(options.files, 0);
-	sort_by_ascii(options.rep, 0);
-	print_files(options);
-	options.flag = 1;
-	print_rep(options);
-//	stat(options.files[0], &info);
-//	if (info.st_mode & S_IFDIR)
-//		ft_printf("C'est un repertoire.\n");
-//	if (info.st_mode & S_IFREG)
-//		ft_printf("%s\n", options.files[0]);
-	return (0);
+	while (list != NULL)
+	{
+		tmp = list->next;
+		free(list->file_name);
+		free(list);
+		list = tmp;
+	}
+}
+
+void	free_options(t_op *options)
+{
+	int		i;
+
+	i = 0;
+	free(options->path);
+	while (options->files[i])
+	{
+		free(options->files[i]);
+		i++;
+	}
+	free(options->files);
+	i = 0;
+	while (options->rep[i])
+	{
+		free(options->rep[i]);
+		i++;
+	}
+	free(options->rep);
 }

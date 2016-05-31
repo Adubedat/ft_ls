@@ -6,13 +6,13 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 15:50:41 by adubedat          #+#    #+#             */
-/*   Updated: 2016/05/11 23:28:45 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/31 20:59:35 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-int			count_files(t_options options, int *len)
+int			count_files(t_op options, int *len)
 {
 	int file_nbr;
 	int	i;
@@ -41,7 +41,7 @@ int			count_files(t_options options, int *len)
 	return (file_nbr);
 }
 
-static char *fill_tab_elem(t_options o, int *i, int *j)
+static char *fill_tab_elem(t_op o, int *i, int *j)
 {
 	char	*tab;
 
@@ -69,7 +69,7 @@ static char *fill_tab_elem(t_options o, int *i, int *j)
 	return (tab);
 }
 
-static char	***fill_tab(t_options o, int l, int L, int mod)
+static char	***fill_tab(t_op o, int l, int L, int mod)
 {
 	int				i[2];
 	int				j;
@@ -84,10 +84,14 @@ static char	***fill_tab(t_options o, int l, int L, int mod)
 	tab = (char***)malloc(sizeof(char**) * l + 1);
 	while (j < l)
 	{
-		k = 0;
+		k = -1;
 		tab[j] = (char**)malloc(sizeof(char*) * L + 1);
-		while ((o.files[i[0]] || o.rep[i[1]]) && k < L)
-			tab[j][k++] = fill_tab_elem(o, &i[0], &i[1]);
+		while (++k < L)
+		{
+			tab[j][k] = NULL;
+			if (o.files[i[0]] || o.rep[i[1]])
+				tab[j][k] = fill_tab_elem(o, &i[0], &i[1]);
+		}
 		tab[j++][k] = NULL;
 	}
 	tab[j] = NULL;
@@ -99,37 +103,33 @@ static void	display_tab(char ***tab, int len)
 	int	i;
 	int	j;
 
-	j = 0;
-	if (tab[0][j] == NULL)
+	j = -1;
+	if (tab[0][0] == NULL)
 		return ;
-	while (tab[0][j])
+	while (tab[0][++j])
 	{
-		i = 0;
-		while (tab[i])
+		i = -1;
+		while (tab[++i])
 		{
 			if (tab[i][j])
-			{
 				ft_printf("%-*s", len, tab[i][j]);
-				free(tab[i][j]);
-			}
-			i++;
+			else
+				break;
 		}
-		free(tab[i]);
-		j++;
 		if (tab[0][j])
 			ft_putchar('\n');
 	}
-	ft_putchar('\n');
-	free(tab);
+	//////////// func free_tab
 }
 
-void		print_files(t_options options)
+void		print_files(t_op options)
 {
 	int				file_nbr;
 	int				len;
 	char			***tab;
 	struct winsize	size;
 
+	len = 0;
 	file_nbr = 0;
 	ioctl(0, TIOCGWINSZ, &size);
 	file_nbr = count_files(options, &len);

@@ -6,13 +6,13 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 14:09:13 by adubedat          #+#    #+#             */
-/*   Updated: 2016/05/11 23:27:04 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/05/31 19:02:13 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static void	initialize_options(t_options *options)
+void	initialize_options(t_op *options)
 {
 	options->l = 0;
 	options->r = 0;
@@ -25,6 +25,7 @@ static void	initialize_options(t_options *options)
 	options->g = 0;
 	options->d = 0;
 	options->flag = 0;
+	options->path = NULL;
 	options->files = NULL;
 	options->rep = NULL;
 }
@@ -36,7 +37,7 @@ static void	error_option(char c)
 	exit(1);
 }
 
-static void	flag_options(t_options *options, char c)
+static void	flag_options(t_op *options, char c)
 {
 	if (c == 'l')
 		options->l = 1;
@@ -60,7 +61,7 @@ static void	flag_options(t_options *options, char c)
 		options->d = 1;
 }
 
-static void	get_files(int i, t_options *options, int argc, char **argv)
+static void	get_files(int i, t_op *options, int argc, char **argv)
 {
 	int			j;
 	int			k;
@@ -89,11 +90,11 @@ static void	get_files(int i, t_options *options, int argc, char **argv)
 	options->files[k] = NULL;
 }
 
-t_options	get_options(int argc, char **argv)
+t_op	get_options(int argc, char **argv)
 {
 	int			i;
 	int			j;
-	t_options	options;
+	t_op		options;
 
 	i = 1;
 	initialize_options(&options);
