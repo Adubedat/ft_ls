@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/24 17:33:49 by adubedat          #+#    #+#             */
-/*   Updated: 2016/05/31 18:37:23 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/07/18 18:55:55 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int main(int argc, char **argv)
 {
-	t_options	options;
+	t_op	options;
 
 	options = get_options(argc, argv);
 	sort_by_ascii(options.files, 0);

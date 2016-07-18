@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 22:42:15 by adubedat          #+#    #+#             */
-/*   Updated: 2016/05/31 21:10:02 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/07/18 19:01:05 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void		get_files_list(int f_nb, t_files *f_list, t_op *o, t_op op)
 	free_list(f_list);
 }
 	
-static void	get_rep_files(char *rep, t_op *options, t_op o)
+static void	get_rep_files(char *rep, t_op *o, t_op options)
 {
 	DIR				*dir;
 	struct dirent	*file;
@@ -77,10 +77,10 @@ static void	get_rep_files(char *rep, t_op *options, t_op o)
 		file_nbr++;
 		temp = temp->next;
 	}
-	get_files_list(file_nbr, file_list, options, o);
-	sort_by_ascii(options->files, 0);
-	sort_by_ascii(options->rep, 0);
-	print_files((*options));
+	get_files_list(file_nbr, file_list, o, options);
+	sort_by_ascii(o->files, 0);
+	sort_by_ascii(o->rep, 0);
+	print_files((*o));
 }
 
 void			print_rep(t_op options)
@@ -97,11 +97,12 @@ void			print_rep(t_op options)
 		o.flag = 1;
 		o.path = ft_strjoin(options.rep[i], "/");
 		if (count_files(options, &len) > 1)
-			ft_printf("\n%s:\n", options.rep[i]);
+			ft_printf("\n%s:\n", o.path);
 		get_rep_files(options.rep[i], &o, options);
 		if (options.maj_r == 1)
 		{
-			add_path(&o);		/// a faire
+			o.path = ft_strjoin(o.path, options.rep[i]);
+		//	add_path(&o, i);		/// a faire
 			print_rep(o);
 		}
 		free_options(&o);
