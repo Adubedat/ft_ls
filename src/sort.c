@@ -6,25 +6,67 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 23:09:25 by adubedat          #+#    #+#             */
-/*   Updated: 2016/05/10 23:55:35 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/07/20 19:49:11 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	sort_by_ascii(char **tab, int i)
+static void	clean_list(t_files *files)
 {
-	char	*temp;
+	t_files	*tmp;
+	t_files	*temp;
 
-	while (tab[i] != NULL && tab[i + 1] != NULL)
+	tmp = files;
+	if (tmp->type == -1)
+		ft_printf("ls : %s: No such file or directory\n", tmp->file_name);
+	while (tmp->next != NULL)
 	{
-		if (ft_strcmp(tab[i], tab[i + 1]) > 0)
+		if (tmp->next->type == -1)
 		{
-			temp = tab[i];
-			tab[i] = tab[i + 1];
-			tab[i + 1] = temp;
-			return (sort_by_ascii(tab, 0));
+			temp = tmp->next->next;
+			ft_printf("ls : %s: No such file or directory\n", tmp->next->file_name);
+			free(tmp->next->file_name);
+			free(tmp->next);
+			tmp->next = temp;
 		}
-		i++;
+		else
+			tmp = tmp->next;
 	}
+}
+
+static void		remove_first_elem(t_files **files)
+{
+	t_files *tmp;
+
+	tmp = *files;
+	*files = (*files)->next;
+	free(tmp->file_name);
+	free(tmp);
+}
+
+void		sort_by_ascii(t_files **files)
+{
+	t_files	*tmp;
+	char	*temp;
+	int		type_tmp;
+
+	tmp = *files;
+	while (tmp->next != NULL)
+	{
+		if (ft_strcmp(tmp->file_name, tmp->next->file_name) > 0)
+		{
+			type_tmp = tmp->type;
+			temp = tmp->file_name;
+			tmp->file_name = tmp->next->file_name;
+			tmp->type = tmp->next->type;
+			tmp->next->file_name = temp;
+			tmp->next->type = type_tmp;
+			return (sort_by_ascii(files));
+		}
+		tmp = tmp->next;
+	}
+	clean_list(*files);
+	if ((*files)->type == -1)
+		remove_first_elem(files);
 }

@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 22:42:15 by adubedat          #+#    #+#             */
-/*   Updated: 2016/07/18 19:01:05 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/07/19 18:14:22 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ static void	get_rep_files(char *rep, t_op *o, t_op options)
 	struct dirent	*file;
 	t_files			*file_list;
 	int				file_nbr;
+	t_files			*temp;
 
 	file_list = NULL;
 	file_nbr = 0;
@@ -70,7 +71,6 @@ static void	get_rep_files(char *rep, t_op *o, t_op options)
 		open_error(rep);
 	while ((file = readdir(dir)) != NULL)
 		create_file_elem(&file_list, file->d_name);
-	t_files *temp;
 	temp = file_list;
 	while (temp != NULL)
 	{
@@ -93,14 +93,16 @@ void			print_rep(t_op options)
 	len = 0;
 	while (options.rep[i] != NULL)
 	{
-		initialize_options(&o);
-		o.flag = 1;
-		o.path = ft_strjoin(options.rep[i], "/");
+		copy_options(&o, options);
+	//	o.flag = 1;
+	//	o.path = ft_strjoin(options.rep[i], "/");
+		ft_printf(" test : %s\n", o.path);
 		if (count_files(options, &len) > 1)
 			ft_printf("\n%s:\n", o.path);
 		get_rep_files(options.rep[i], &o, options);
 		if (options.maj_r == 1)
 		{
+		//	o.path = ft_strjoin(options.path, "/");
 			o.path = ft_strjoin(o.path, options.rep[i]);
 		//	add_path(&o, i);		/// a faire
 			print_rep(o);

@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 14:09:13 by adubedat          #+#    #+#             */
-/*   Updated: 2016/07/18 18:54:36 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/07/19 18:59:13 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	initialize_options(t_op *options)
 	options->flag = 0;
 	options->path = NULL;
 	options->files = NULL;
-	options->rep = NULL;
 }
 
 static void	error_option(char c)
@@ -63,31 +62,10 @@ static void	flag_options(t_op *options, char c)
 
 static void	get_files(int i, t_op *options, int argc, char **argv)
 {
-	int			j;
-	int			k;
-	struct stat check;
-
-	j = 0;
-	k = 0;
-	options->files = (char**)malloc(sizeof(char*) * (argc - i) + 1);
-	options->rep = (char**)malloc(sizeof(char*) * (argc - i) + 1);
 	if (argc - i == 0)
-	{
-		options->rep = (char**)malloc(sizeof(char*) * 2);
-		options->rep[j++] = ft_strdup(".");
-	}
+		create_new_elem(options, ".");
 	while (argv[i])
-	{
-		if (stat(argv[i], &check) == -1)
-			ft_printf("ls: %s: No such file or directory\n", argv[i]);
-		else if (check.st_mode & S_IFDIR)
-			options->rep[j++] = ft_strdup(argv[i]);
-		else if (check.st_mode & S_IFREG)
-			options->files[k++] = ft_strdup(argv[i]);
-		i++;
-	}
-	options->rep[j] = NULL;
-	options->files[k] = NULL;
+		create_new_elem(options, argv[i++]);
 }
 
 t_op	get_options(int argc, char **argv)
