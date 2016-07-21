@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 23:09:25 by adubedat          #+#    #+#             */
-/*   Updated: 2016/07/20 19:49:11 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/07/21 19:56:42 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,12 @@ static void	clean_list(t_files *files)
 		ft_printf("ls : %s: No such file or directory\n", tmp->file_name);
 	while (tmp->next != NULL)
 	{
-		if (tmp->next->type == -1)
+		if (tmp->next->type == -1 || tmp->next->type == 2)
 		{
 			temp = tmp->next->next;
-			ft_printf("ls : %s: No such file or directory\n", tmp->next->file_name);
+			if (tmp->next->type == -1)
+				ft_printf("ls : %s: No such file or directory\n",
+				   	tmp->next->file_name);
 			free(tmp->next->file_name);
 			free(tmp->next);
 			tmp->next = temp;

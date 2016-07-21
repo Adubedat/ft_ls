@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/31 18:02:15 by adubedat          #+#    #+#             */
-/*   Updated: 2016/05/31 20:14:05 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/07/21 20:17:05 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	free_list(t_files *list)
 		list = tmp;
 	}
 }
-
+/*
 void	free_options(t_op *options)
 {
 	int		i;
@@ -45,3 +45,4 @@ void	free_options(t_op *options)
 	}
 	free(options->rep);
 }
+*/

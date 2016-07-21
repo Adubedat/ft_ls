@@ -6,7 +6,7 @@
 #    By: adubedat <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/04/23 17:07:31 by adubedat          #+#    #+#              #
-#    Updated: 2016/07/20 17:25:37 by adubedat         ###   ########.fr        #
+#    Updated: 2016/07/21 19:41:06 by adubedat         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,11 @@ LDLIBS = -lft
 SRC_NAME =	main.c \
 			options.c \
 			create_elem.c \
+			print_files.c \
+			print_rep.c \
+			options2.c \
 			sort.c \
+			free.c \
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 

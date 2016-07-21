@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 15:50:41 by adubedat          #+#    #+#             */
-/*   Updated: 2016/07/19 19:43:51 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/07/21 19:55:14 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,71 +14,49 @@
 
 int			count_files(t_op options, int *len)
 {
-	int file_nbr;
-	int	i;
-	int	temp;
+	int 	file_nbr;
+	t_files	*tmp;
+	int		temp;
 
-	i = 0;
+	tmp = options.files;
 	file_nbr = 0;
-	while (options.files[i] != NULL)
+	while (tmp != NULL)
 	{
-		if ((temp = ft_strlen(options.files[i])) > *len)
-			*len = temp;
-		file_nbr += 1;
-		i++;
-	}
-	i = 0;
-	if (options.flag)
-	{
-		while (options.rep[i] != NULL)
+		if (tmp->type == 1 || (tmp->type == 0 && options.flag == 1))
 		{
-			if ((temp = ft_strlen(options.rep[i])) > *len)
+			if ((temp = ft_strlen(tmp->file_name)) > *len)
 				*len = temp;
 			file_nbr += 1;
-			i++;
 		}
+		tmp = tmp->next;
 	}
 	return (file_nbr);
 }
 
-static char *fill_tab_elem(t_op o, int *i, int *j)
+static char *fill_tab_elem(t_op o, t_files **tmp)
 {
 	char	*tab;
 
 	tab = NULL;
-	if (o.files[*i] == NULL && o.rep[*j] && o.flag == 1)
-	{
-		tab = ft_strdup(o.rep[*j]);
-		*j += 1;
-	}
-	else if (o.flag == 0 || (o.rep[*j] == NULL && o.files[*i]))
-	{
-		tab = ft_strdup(o.files[*i]);
-		*i += 1;
-	}
-	else if (ft_strcmp(o.files[*i], o.rep[*j]) > 0 && o.flag == 1)
-	{
-		tab = ft_strdup(o.rep[*j]);
-		*j += 1;
-	}
-	else if (o.files[*i])
-	{
-		tab = ft_strdup(o.files[*i]);
-		*i += 1;
-	}
+	while (!(((*tmp)->type == 0 && o.flag == 1) || (*tmp)->type == 1)
+			&& (*tmp) != NULL)
+		(*tmp) = (*tmp)->next;
+	if ((*tmp) == NULL)
+		return (tab);
+	tab = ft_strdup((*tmp)->file_name);
+	(*tmp) = (*tmp)->next;
 	return (tab);
 }
 
 static char	***fill_tab(t_op o, int l, int L, int mod)
 {
-	int				i[2];
+	t_files			*tmp;
 	int				j;
 	int				k;
 	char 			***tab;
 
-	i[0] = 0;
 	j = 0;
-	i[1] = 0;
+	tmp = o.files;
 	if (mod == 0)
 		L -= 1;
 	tab = (char***)malloc(sizeof(char**) * l + 1);
@@ -89,8 +67,8 @@ static char	***fill_tab(t_op o, int l, int L, int mod)
 		while (++k < L)
 		{
 			tab[j][k] = NULL;
-			if (o.files[i[0]] || o.rep[i[1]])
-				tab[j][k] = fill_tab_elem(o, &i[0], &i[1]);
+			if (tmp != NULL)
+				tab[j][k] = fill_tab_elem(o, &tmp);
 		}
 		tab[j++][k] = NULL;
 	}

@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 22:42:15 by adubedat          #+#    #+#             */
-/*   Updated: 2016/07/19 18:14:22 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/07/21 20:55:57 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ static void		create_file_elem(t_files **file_list, char *name)
 	new->next = (*file_list);
 	(*file_list) = new;
 }
-
-static void		get_files_list(int f_nb, t_files *f_list, t_op *o, t_op op)
+/*
+static void		get_files_list(int f_nb, t_files *f_list, t_op *o)
 {
 	t_files		*tmp;
 	struct stat	check;
@@ -56,58 +56,50 @@ static void		get_files_list(int f_nb, t_files *f_list, t_op *o, t_op op)
 	o->files[k] = NULL;
 	free_list(f_list);
 }
-	
-static void	get_rep_files(char *rep, t_op *o, t_op options)
+*/	
+static void	get_rep_files(char *rep, t_op *o)
 {
 	DIR				*dir;
 	struct dirent	*file;
-	t_files			*file_list;
 	int				file_nbr;
-	t_files			*temp;
+//	t_files			*temp;
 
-	file_list = NULL;
 	file_nbr = 0;
 	if ((dir = opendir(rep)) == NULL)
 		open_error(rep);
 	while ((file = readdir(dir)) != NULL)
-		create_file_elem(&file_list, file->d_name);
-	temp = file_list;
-	while (temp != NULL)
-	{
-		file_nbr++;
-		temp = temp->next;
-	}
-	get_files_list(file_nbr, file_list, o, options);
-	sort_by_ascii(o->files, 0);
-	sort_by_ascii(o->rep, 0);
+		create_new_elem(o, file->d_name);
+//	temp = o->files;
+//	while (temp != NULL)
+//	{
+//		file_nbr++;
+//		temp = temp->next;
+//	}
+//	get_files_list(file_nbr, file_list, o);
+	sort_by_ascii(&o->files);
 	print_files((*o));
 }
 
 void			print_rep(t_op options)
 {
-	int			i;
+	t_files		*tmp;
 	int			len;
 	t_op		o;
 
-	i = 0;
+	tmp = options.files;
 	len = 0;
-	while (options.rep[i] != NULL)
+	while (tmp != NULL)
 	{
-		copy_options(&o, options);
-	//	o.flag = 1;
-	//	o.path = ft_strjoin(options.rep[i], "/");
-		ft_printf(" test : %s\n", o.path);
-		if (count_files(options, &len) > 1)
-			ft_printf("\n%s:\n", o.path);
-		get_rep_files(options.rep[i], &o, options);
-		if (options.maj_r == 1)
+		if (tmp->type == 0)
 		{
-		//	o.path = ft_strjoin(options.path, "/");
-			o.path = ft_strjoin(o.path, options.rep[i]);
-		//	add_path(&o, i);		/// a faire
-			print_rep(o);
+			copy_options(&o, options, tmp->file_name);
+			if (count_files(options, &len) > 1)
+				ft_printf("\n%s:\n", o.path);
+			get_rep_files(o.path, &o);
+			if (options.maj_r == 1)
+				print_rep(o);
+		//	free_options(&o);
 		}
-		free_options(&o);
-		i++;
+		tmp = tmp->next;
 	}
 }
