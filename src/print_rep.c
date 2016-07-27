@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 22:42:15 by adubedat          #+#    #+#             */
-/*   Updated: 2016/07/27 19:20:54 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/07/27 20:13:05 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,9 @@ void			print_rep(t_op options)
 	len = 0;
 	while (tmp != NULL)
 	{
-		if (tmp->type == 0 || (tmp->type == 3 && options.flag == 0))
+		if ((tmp->type == 0 || (tmp->type == 3 && options.flag == 0))
+			&& (ft_strcmp(tmp->file_name, ".") != 0 || options.flag == 0)
+			&& ft_strcmp(tmp->file_name, "..") != 0)
 		{
 			copy_options(&o, options, tmp->file_name);
 			if (options.flag == 1 || count_files2(options) > 1)
