@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/19 18:01:34 by adubedat          #+#    #+#             */
-/*   Updated: 2016/07/27 16:27:05 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/07/27 19:14:03 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,28 @@ static int	is_valid(t_op *o, char *name)
 		return (1);
 	else
 		return (0);
+}
+
+static int	test_blk_chr(struct stat check)
+{
+	if (S_ISBLK(check.st_mode))
+		return (5);
+	else
+		return (6);
+}
+
+static int	test_lnk(char *join, char *name, t_op *o)
+{
+	struct stat	check;
+
+	if (o->path == NULL)
+		stat(name, &check);
+	else
+		stat(ft_strjoin(join, name), &check);
+	if (S_ISDIR(check.st_mode))
+		return (3);
+	else
+		return (4);
 }
 
 void		create_new_elem(t_op *o, char	*name)
@@ -33,8 +55,10 @@ void		create_new_elem(t_op *o, char	*name)
 	if ((o->path == NULL && lstat(name, &check) == -1)
 		|| (o->path != NULL && lstat(ft_strjoin(join, name), &check) == -1))
 		new->type = -1;
+	else if ((S_ISCHR(check.st_mode) || S_ISBLK(check.st_mode)) && valid == 1)
+		new->type = test_blk_chr(check);
 	else if (S_ISLNK(check.st_mode) && valid == 1)
-		new->type = 3;
+		new->type = test_lnk(join, name, o);
 	else if (check.st_mode & S_IFDIR && valid == 1)
 		new->type = 0;
 	else if ((check.st_mode & S_IFREG && valid == 1) || o->flag == 0)
@@ -51,5 +75,8 @@ void		create_new_elem(t_op *o, char	*name)
 ** 0 = Directory
 ** 1 = Normal file
 ** 2 = File to clean
-** 3 = symbolic link
+** 3 = symbolic link repertory
+** 4 = symbolic link file
+** 5 = bloc mode
+** 6 = caractere mode
 */

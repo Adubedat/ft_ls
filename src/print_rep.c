@@ -6,17 +6,11 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 22:42:15 by adubedat          #+#    #+#             */
-/*   Updated: 2016/07/27 16:36:48 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/07/27 19:20:54 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-
-void			open_error(char *str)
-{
-	ft_printf("Open directory %s failed", str);
-	exit(1);
-}
 
 static void	get_rep_files(char *rep, t_op *o)
 {
@@ -24,13 +18,39 @@ static void	get_rep_files(char *rep, t_op *o)
 	struct dirent	*file;
 	int				file_nbr;
 
+	errno = 0;
 	file_nbr = 0;
 	if ((dir = opendir(rep)) == NULL)
-		open_error(rep);
+	{
+		perror(rep);
+		return ;
+	}
 	while ((file = readdir(dir)) != NULL)
 		create_new_elem(o, file->d_name);
+//	t_files *tmp;
+//	tmp = o->files;
+//	while (tmp != NULL)
+//	{
+//		ft_printf("name : %s\ntype : %d\n", tmp->file_name, tmp->type);
+//		tmp = tmp->next;
+//	}
 	sort(o);
 	print_files((*o));
+}
+
+static int		count_files2(t_op options)
+{
+	t_files *tmp;
+	int		file_nbr;
+
+	file_nbr = 0;
+	tmp = options.files;
+	while (tmp != NULL)
+	{
+		file_nbr++;
+		tmp = tmp->next;
+	}
+	return (file_nbr);
 }
 
 void			print_rep(t_op options)
@@ -46,7 +66,7 @@ void			print_rep(t_op options)
 		if (tmp->type == 0 || (tmp->type == 3 && options.flag == 0))
 		{
 			copy_options(&o, options, tmp->file_name);
-			if (options.flag == 1)
+			if (options.flag == 1 || count_files2(options) > 1)
 				ft_printf("\n%s:\n", o.path);
 			get_rep_files(o.path, &o);
 			if (options.maj_r == 1)
