@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 22:42:15 by adubedat          #+#    #+#             */
-/*   Updated: 2016/07/26 19:32:13 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/07/27 16:36:48 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	get_rep_files(char *rep, t_op *o)
 		open_error(rep);
 	while ((file = readdir(dir)) != NULL)
 		create_new_elem(o, file->d_name);
-	sort_by_ascii(&o->files);
+	sort(o);
 	print_files((*o));
 }
 
@@ -43,7 +43,7 @@ void			print_rep(t_op options)
 	len = 0;
 	while (tmp != NULL)
 	{
-		if (tmp->type == 0)
+		if (tmp->type == 0 || (tmp->type == 3 && options.flag == 0))
 		{
 			copy_options(&o, options, tmp->file_name);
 			if (options.flag == 1)

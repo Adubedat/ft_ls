@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 15:50:41 by adubedat          #+#    #+#             */
-/*   Updated: 2016/07/26 17:11:21 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/07/27 16:35:59 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int			count_files(t_op options, int *len)
 	file_nbr = 0;
 	while (tmp != NULL)
 	{
-		if (tmp->type == 1 || tmp->type == 3 || (tmp->type == 0 && options.flag == 1))
+		if (tmp->type == 1 || (tmp->type == 3 && options.flag == 1) 
+				|| (tmp->type == 0 && options.flag == 1))
 		{
 			if ((temp = ft_strlen(tmp->file_name)) > *len)
 				*len = temp;
@@ -39,7 +40,7 @@ static char *fill_tab_elem(t_op o, t_files **tmp)
 
 	tab = NULL;
 	while (!(((*tmp)->type == 0 && o.flag == 1) || (*tmp)->type == 1
-			|| (*tmp)->type == 3) && (*tmp) != NULL)
+			|| ((*tmp)->type == 3 && o.flag == 1)) && (*tmp) != NULL)
 		(*tmp) = (*tmp)->next;
 	if ((*tmp) == NULL)
 		return (tab);

@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 23:09:25 by adubedat          #+#    #+#             */
-/*   Updated: 2016/07/26 19:15:59 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/07/27 16:43:10 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,23 +69,50 @@ static void		insert_sorted(t_files **new, t_files *elem)
 	tmp->next = elem;
 }
 
-void		sort_by_ascii(t_files **files)
+static void		insert_revert_sorted(t_files **new, t_files *elem)
+{
+	t_files *tmp;
+
+	tmp = *new;
+	if (tmp == NULL)
+	{
+		*new = elem;
+		return ;
+	}
+	else if (ft_strcmp(tmp->file_name, elem->file_name) < 0)
+	{
+		elem->next = (*new);
+		*new = elem;
+		return ;
+	}
+	while (tmp->next != NULL && ft_strcmp(tmp->next->file_name, elem->file_name) > 0)
+		tmp = tmp->next;
+	elem->next = tmp->next;
+	tmp->next = elem;
+}
+
+void			sort(t_op *options)
 {
 	t_files	*tmp;
 	t_files	*next;
 	t_files *new_list;
 
-	tmp = *files;
+	tmp = options->files;
 	new_list = NULL;
 	while (tmp != NULL)
 	{
 		next = tmp->next;
 		tmp->next = NULL;
-		insert_sorted(&new_list, tmp);
+		if (options->r == 1)
+			insert_revert_sorted(&new_list, tmp);
+//		else if (options->t = 1)
+//			insert_time_sorted(&new_list, tmp);
+		else
+			insert_sorted(&new_list, tmp);
 		tmp = next;
 	}
-	*files = new_list;
-	clean_list(*files);
-	if ((*files)->type == -1 || (*files)->type == 2)
-		remove_first_elem(files);
+	options->files = new_list;
+	clean_list(options->files);
+	if (options->files->type == -1 || options->files->type == 2)
+		remove_first_elem(&(options->files));
 }
