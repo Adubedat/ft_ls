@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 23:09:25 by adubedat          #+#    #+#             */
-/*   Updated: 2016/07/27 19:08:12 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/07/28 18:41:10 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void		remove_first_elem(t_files **files)
 	free(tmp);
 }
 
-static void		insert_sorted(t_files **new, t_files *elem)
+void			insert_sorted(t_files **new, t_files *elem)
 {
 	t_files *tmp;
 
@@ -69,7 +69,7 @@ static void		insert_sorted(t_files **new, t_files *elem)
 	tmp->next = elem;
 }
 
-static void		insert_revert_sorted(t_files **new, t_files *elem)
+void			insert_revert_sorted(t_files **new, t_files *elem)
 {
 	t_files *tmp;
 
@@ -103,15 +103,24 @@ void			sort(t_op *options)
 	{
 		next = tmp->next;
 		tmp->next = NULL;
-		if (options->r == 1)
+		if	(options->t == 1 && options->r == 1)
+			insert_revert_time(&new_list, tmp);
+		else if (options->t == 1)
+			insert_time_sorted(&new_list, tmp);
+		else if (options->r == 1)
 			insert_revert_sorted(&new_list, tmp);
-//		else if (options->t = 1)
-//			insert_time_sorted(&new_list, tmp);
 		else
 			insert_sorted(&new_list, tmp);
 		tmp = next;
 	}
 	options->files = new_list;
+//	t_files *temp;
+//	temp = options->files;
+//	while (temp != NULL)
+//	{
+//		ft_printf("name : %s\ntype : %d\nseconds : %d\nnano : %ld\n", temp->file_name, temp->type, temp->check.st_mtimespec.tv_sec, temp->check.st_mtimespec.tv_nsec);
+//		temp = temp->next;
+//	}
 	clean_list(options->files);
 	if (options->files->type == -1 || options->files->type == 2)
 		remove_first_elem(&(options->files));

@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 15:50:41 by adubedat          #+#    #+#             */
-/*   Updated: 2016/07/27 20:06:41 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/07/28 19:41:43 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ static char *fill_tab_elem(t_op o, t_files **tmp)
 	char	*tab;
 
 	tab = NULL;
-	while (!(o.flag == 1 || ((*tmp)->type == 1 || (*tmp)->type == 4
-			|| (*tmp)->type == 5 || (*tmp)->type == 6)) && (*tmp) != NULL)
+	while ((*tmp) != NULL && !(o.flag == 1 || ((*tmp)->type == 1
+	|| (*tmp)->type == 4 || (*tmp)->type == 5 || (*tmp)->type == 6)))
 		(*tmp) = (*tmp)->next;
 	if ((*tmp) == NULL)
 		return (tab);

@@ -6,7 +6,7 @@
 #    By: adubedat <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/04/23 17:07:31 by adubedat          #+#    #+#              #
-#    Updated: 2016/07/21 19:41:06 by adubedat         ###   ########.fr        #
+#    Updated: 2016/07/28 16:36:54 by adubedat         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRC_NAME =	main.c \
 			print_rep.c \
 			options2.c \
 			sort.c \
+			sort2.c \
 			free.c \
 
 OBJ_NAME = $(SRC_NAME:.c=.o)

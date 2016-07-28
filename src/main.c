@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/24 17:33:49 by adubedat          #+#    #+#             */
-/*   Updated: 2016/07/27 18:06:13 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/07/28 19:18:21 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int main(int argc, char **argv)
 //	tmp = options.files;
 //	while (tmp != NULL)
 //	{
-//		ft_printf("name : %s\ntype : %d\n", tmp->file_name, tmp->type);
+//		ft_printf("name : %s\ntype : %d\ntime : %ld\n", tmp->file_name, tmp->type, tmp->check.st_atime);
 //		tmp = tmp->next;
 //	}
 	sort(&options);

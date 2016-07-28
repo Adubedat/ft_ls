@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/24 17:35:46 by adubedat          #+#    #+#             */
-/*   Updated: 2016/07/27 17:54:48 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/07/28 18:38:15 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct		s_files
 {
 	char			*file_name;
 	int				type;
+	struct stat		check;
 	struct s_files	*next;
 }					t_files;
 
@@ -51,5 +52,9 @@ void				copy_options(t_op *o, t_op options, char *name);
 void				print_rep(t_op options);
 int					count_files(t_op options, int *len);
 void				free_options(t_op *options);
+void				insert_sorted(t_files **new, t_files *elem);
+void				insert_revert_sorted(t_files **new, t_files *elem);
+void				insert_time_sorted(t_files **new, t_files *elem);
+void				insert_revert_time(t_files **new, t_files *elem);
 
 #endif

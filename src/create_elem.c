@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/19 18:01:34 by adubedat          #+#    #+#             */
-/*   Updated: 2016/07/27 19:14:03 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/07/28 18:38:49 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ static int	test_lnk(char *join, char *name, t_op *o)
 
 void		create_new_elem(t_op *o, char	*name)
 {
-	struct stat	check;
 	t_files		*new;
 	char		*join;
 	int			valid;
@@ -52,16 +51,16 @@ void		create_new_elem(t_op *o, char	*name)
 	valid = is_valid(o, name);
 	new = (t_files *)malloc(sizeof(t_files));
 	join = ft_strjoin(o->path, "/");
-	if ((o->path == NULL && lstat(name, &check) == -1)
-		|| (o->path != NULL && lstat(ft_strjoin(join, name), &check) == -1))
+	if ((o->path == NULL && lstat(name, &(new->check)) == -1)
+	|| (o->path != NULL && lstat(ft_strjoin(join, name), &(new->check)) == -1))
 		new->type = -1;
-	else if ((S_ISCHR(check.st_mode) || S_ISBLK(check.st_mode)) && valid == 1)
-		new->type = test_blk_chr(check);
-	else if (S_ISLNK(check.st_mode) && valid == 1)
+	else if ((S_ISCHR(new->check.st_mode) || S_ISBLK(new->check.st_mode)) && valid == 1)
+		new->type = test_blk_chr(new->check);
+	else if (S_ISLNK(new->check.st_mode) && valid == 1)
 		new->type = test_lnk(join, name, o);
-	else if (check.st_mode & S_IFDIR && valid == 1)
+	else if (new->check.st_mode & S_IFDIR && valid == 1)
 		new->type = 0;
-	else if ((check.st_mode & S_IFREG && valid == 1) || o->flag == 0)
+	else if ((new->check.st_mode & S_IFREG && valid == 1) || o->flag == 0)
 		new->type = 1;
 	else
 		new->type = 2;
