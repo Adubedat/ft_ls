@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 22:42:15 by adubedat          #+#    #+#             */
-/*   Updated: 2016/07/28 18:39:00 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/09/11 19:50:15 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,16 @@ static void	get_rep_files(char *rep, t_op *o)
 	}
 	while ((file = readdir(dir)) != NULL)
 		create_new_elem(o, file->d_name);
-//	t_files *tmp;
-//	tmp = o->files;
-//	while (tmp != NULL)
-//	{
-//		ft_printf("name : %s\ntype : %d\n", tmp->file_name, tmp->type);
-//		tmp = tmp->next;
-//	}
 	sort(o);
-	print_files((*o));
+	if (o->l == 1)
+		print_files_l((*o));
+	else
+		print_files((*o));
+	if (closedir(dir) == -1)
+	{
+		perror(rep);
+		return ;
+	}
 }
 
 static int		count_files2(t_op options)

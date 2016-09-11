@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/19 18:01:34 by adubedat          #+#    #+#             */
-/*   Updated: 2016/07/28 18:38:49 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/09/11 20:45:32 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,12 @@ static int	test_blk_chr(struct stat check)
 {
 	if (S_ISBLK(check.st_mode))
 		return (5);
-	else
+	else if (S_ISCHR(check.st_mode))
 		return (6);
+	else if (S_ISSOCK(check.st_mode))
+		return (7);
+	else
+		return (8);
 }
 
 static int	test_lnk(char *join, char *name, t_op *o)
@@ -46,21 +50,22 @@ void		create_new_elem(t_op *o, char	*name)
 {
 	t_files		*new;
 	char		*join;
-	int			valid;
+	int			ok;
 
-	valid = is_valid(o, name);
+	ok = is_valid(o, name);
 	new = (t_files *)malloc(sizeof(t_files));
 	join = ft_strjoin(o->path, "/");
 	if ((o->path == NULL && lstat(name, &(new->check)) == -1)
 	|| (o->path != NULL && lstat(ft_strjoin(join, name), &(new->check)) == -1))
 		new->type = -1;
-	else if ((S_ISCHR(new->check.st_mode) || S_ISBLK(new->check.st_mode)) && valid == 1)
+	else if ((S_ISCHR(new->check.st_mode) || S_ISBLK(new->check.st_mode) 
+	|| S_ISSOCK(new->check.st_mode) || S_ISFIFO(new->check.st_mode)) && ok == 1)
 		new->type = test_blk_chr(new->check);
-	else if (S_ISLNK(new->check.st_mode) && valid == 1)
+	else if (S_ISLNK(new->check.st_mode) && ok == 1)
 		new->type = test_lnk(join, name, o);
-	else if (new->check.st_mode & S_IFDIR && valid == 1)
+	else if (new->check.st_mode & S_IFDIR && ok == 1)
 		new->type = 0;
-	else if ((new->check.st_mode & S_IFREG && valid == 1) || o->flag == 0)
+	else if ((new->check.st_mode & S_IFREG && ok == 1) || o->flag == 0)
 		new->type = 1;
 	else
 		new->type = 2;
@@ -78,4 +83,6 @@ void		create_new_elem(t_op *o, char	*name)
 ** 4 = symbolic link file
 ** 5 = bloc mode
 ** 6 = caractere mode
+** 7 = socket mode
+** 8 = FIFO mode
 */

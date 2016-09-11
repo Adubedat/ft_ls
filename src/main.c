@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/24 17:33:49 by adubedat          #+#    #+#             */
-/*   Updated: 2016/07/28 19:18:21 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/09/11 17:10:23 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ int main(int argc, char **argv)
 //		tmp = tmp->next;
 //	}
 	sort(&options);
-	print_files(options);
+	if (options.l == 1)
+		print_files_l(options);
+	else
+		print_files(options);
 	print_rep(options);
 	return (0);
 }
