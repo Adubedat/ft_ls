@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/24 17:35:46 by adubedat          #+#    #+#             */
-/*   Updated: 2016/09/11 22:05:04 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/09/18 19:23:34 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,16 @@
 # include <sys/stat.h>
 # include <dirent.h>
 # include <sys/ioctl.h>
+# include <grp.h>
+# include <pwd.h>
 
 typedef struct		s_files
 {
 	char			*file_name;
 	int				type;
 	struct stat		check;
+	struct group	*gid;
+	struct passwd	*uid;
 	struct s_files	*next;
 }					t_files;
 
@@ -51,6 +55,7 @@ typedef struct		s_len
 	int				owner;
 	int				group;
 	int				bytes;
+	int				device;
 }					t_len;
 
 t_op				get_options(int argc, char **argv);

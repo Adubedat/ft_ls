@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/11 17:18:11 by adubedat          #+#    #+#             */
-/*   Updated: 2016/09/11 19:41:02 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/09/18 19:31:40 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,4 @@ void		print_type(t_files *tmp)
 	else
 		ft_putchar('-');
 	print_usr_rights(tmp);
-	ft_putchar('\n');
 }
