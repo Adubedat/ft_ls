@@ -6,7 +6,7 @@
 #    By: adubedat <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/04/23 17:07:31 by adubedat          #+#    #+#              #
-#    Updated: 2016/09/11 17:25:14 by adubedat         ###   ########.fr        #
+#    Updated: 2016/09/26 16:59:57 by adubedat         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SRC_NAME =	main.c \
 			free.c \
 			print_files_l.c \
 			print_rights.c \
+			print_time.c \
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/11 15:30:37 by adubedat          #+#    #+#             */
-/*   Updated: 2016/09/18 19:35:32 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/09/26 18:12:33 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,16 @@ static t_len	init_len(void)
 	len.owner = 1;
 	len.group = 1;
 	len.bytes = 1;
-	len.device = 0;
+	len.major = 0;
+	len.minor = 0;
+	return (len);
+}
+
+static t_len	count_len2(t_len len, t_files *tmp)
+{
+	if ((tmp->type == 5 || tmp->type == 6)
+			&& ft_intlen(minor(tmp->check.st_rdev)) > len.minor)
+		len.minor = ft_intlen(minor(tmp->check.st_rdev));
 	return (len);
 }
 
@@ -46,11 +55,27 @@ static t_len	count_len(t_files *files)
 		if (ft_intlen(tmp->check.st_size) > len.bytes)
 			len.bytes = ft_intlen(tmp->check.st_size);
 		if ((tmp->type == 5 || tmp->type == 6)
-				&& ft_intlen(tmp->check.st_rdev) > len.device)
-			len.device = tmp->check.st_rdev;
+				&& ft_intlen(major(tmp->check.st_rdev)) > len.major)
+			len.major = ft_intlen(major(tmp->check.st_rdev));
+		len = count_len2(len, tmp);
 		tmp = tmp->next;
 	}
 	return (len);
+}
+
+static void		print_files_l2(t_len len, t_files *tmp)
+{
+	if (len.minor != 0)
+	{
+		if (tmp->type == 5 || tmp->type == 6)
+			ft_printf("%*d ", len.minor, minor(tmp->check.st_rdev));
+		else
+			ft_printf("%*d ", len.minor, tmp->check.st_size);
+	}
+	else
+		ft_printf("%*d ", len.bytes, tmp->check.st_size);
+	print_time(tmp);
+	print_name(tmp);
 }
 
 void			print_files_l(t_op options)
@@ -65,9 +90,19 @@ void			print_files_l(t_op options)
 	while (tmp != NULL)
 	{
 		if (options.flag == 1 || (tmp->type != 0 && tmp->type != 3))
+		{
 			print_type(tmp);
-		ft_printf("%-*d%-*s%-*s\n", len.lnk + 1, tmp->check.st_nlink,
-		len.owner + 1, tmp->uid->pw_name, len.group + 1, tmp->gid->gr_name);
+			ft_printf("%-*d%-*s%-*s", len.lnk + 1, tmp->check.st_nlink,
+			len.owner + 2, tmp->uid->pw_name, len.group + 2, tmp->gid->gr_name);
+			if (len.major != 0)
+			{
+				if (tmp->type == 5 || tmp->type == 6)
+					ft_printf(" %*d, ", len.major, major(tmp->check.st_rdev));
+				else
+					ft_printf(" %*s  ", len.major, " ");
+			}
+			print_files_l2(len, tmp);
+		}
 		tmp = tmp->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 23:09:25 by adubedat          #+#    #+#             */
-/*   Updated: 2016/07/28 18:41:10 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/09/26 17:13:45 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,13 +114,6 @@ void			sort(t_op *options)
 		tmp = next;
 	}
 	options->files = new_list;
-//	t_files *temp;
-//	temp = options->files;
-//	while (temp != NULL)
-//	{
-//		ft_printf("name : %s\ntype : %d\nseconds : %d\nnano : %ld\n", temp->file_name, temp->type, temp->check.st_mtimespec.tv_sec, temp->check.st_mtimespec.tv_nsec);
-//		temp = temp->next;
-//	}
 	clean_list(options->files);
 	if (options->files->type == -1 || options->files->type == 2)
 		remove_first_elem(&(options->files));

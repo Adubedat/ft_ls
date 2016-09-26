@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/24 17:35:46 by adubedat          #+#    #+#             */
-/*   Updated: 2016/09/18 19:23:34 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/09/26 17:59:37 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 typedef struct		s_files
 {
 	char			*file_name;
+	char			*link;
 	int				type;
 	struct stat		check;
 	struct group	*gid;
@@ -55,7 +56,8 @@ typedef struct		s_len
 	int				owner;
 	int				group;
 	int				bytes;
-	int				device;
+	int				minor;
+	int				major;
 }					t_len;
 
 t_op				get_options(int argc, char **argv);
@@ -63,6 +65,8 @@ void				create_new_elem(t_op *options, char *name);
 void				sort(t_op *options);
 void				print_files(t_op options);
 void				print_type(t_files *tmp);
+void				print_time(t_files *tmp);
+void				print_name(t_files *tmp);
 void				print_files_l(t_op options);
 void				copy_options(t_op *o, t_op options, char *name);
 void				print_rep(t_op options);

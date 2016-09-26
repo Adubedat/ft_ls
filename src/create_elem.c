@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/19 18:01:34 by adubedat          #+#    #+#             */
-/*   Updated: 2016/09/18 19:29:21 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/09/26 18:13:50 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,19 @@ static int	test_blk_chr(struct stat check)
 		return (8);
 }
 
-static int	test_lnk(char *join, char *name, t_op *o)
+static int	test_lnk(char *join, char *name, t_op *o, t_files **new)
 {
 	struct stat	check;
+	char		buf[1024];
+	ssize_t		len;
 
+	ft_memset(buf, 0, sizeof(buf));
 	if (o->path == NULL)
 		stat(name, &check);
 	else
 		stat(ft_strjoin(join, name), &check);
+	len = readlink(ft_strjoin(join, name), buf, sizeof(buf) - 1);
+	(*new)->link = ft_strdup(buf);
 	if (S_ISDIR(check.st_mode))
 		return (3);
 	else
@@ -62,7 +67,7 @@ void		create_new_elem(t_op *o, char	*name)
 	|| S_ISSOCK(new->check.st_mode) || S_ISFIFO(new->check.st_mode)) && ok == 1)
 		new->type = test_blk_chr(new->check);
 	else if (S_ISLNK(new->check.st_mode) && ok == 1)
-		new->type = test_lnk(join, name, o);
+		new->type = test_lnk(join, name, o, &new);
 	else if (new->check.st_mode & S_IFDIR && ok == 1)
 		new->type = 0;
 	else if ((new->check.st_mode & S_IFREG && ok == 1) || o->flag == 0)
