@@ -6,13 +6,13 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 23:09:25 by adubedat          #+#    #+#             */
-/*   Updated: 2016/09/26 17:13:45 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/09/27 18:15:55 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static void	clean_list(t_files *files)
+static void		clean_list(t_files *files)
 {
 	t_files	*tmp;
 	t_files	*temp;
@@ -27,7 +27,7 @@ static void	clean_list(t_files *files)
 			temp = tmp->next->next;
 			if (tmp->next->type == -1)
 				ft_printf("ls: %s: No such file or directory\n",
-				   	tmp->next->file_name);
+					tmp->next->file_name);
 			free(tmp->next->file_name);
 			free(tmp->next);
 			tmp->next = temp;
@@ -63,7 +63,8 @@ void			insert_sorted(t_files **new, t_files *elem)
 		*new = elem;
 		return ;
 	}
-	while (tmp->next != NULL && ft_strcmp(tmp->next->file_name, elem->file_name) < 0)
+	while (tmp->next != NULL &&
+			ft_strcmp(tmp->next->file_name, elem->file_name) < 0)
 		tmp = tmp->next;
 	elem->next = tmp->next;
 	tmp->next = elem;
@@ -85,7 +86,8 @@ void			insert_revert_sorted(t_files **new, t_files *elem)
 		*new = elem;
 		return ;
 	}
-	while (tmp->next != NULL && ft_strcmp(tmp->next->file_name, elem->file_name) > 0)
+	while (tmp->next != NULL
+			&& ft_strcmp(tmp->next->file_name, elem->file_name) > 0)
 		tmp = tmp->next;
 	elem->next = tmp->next;
 	tmp->next = elem;
@@ -103,7 +105,7 @@ void			sort(t_op *options)
 	{
 		next = tmp->next;
 		tmp->next = NULL;
-		if	(options->t == 1 && options->r == 1)
+		if (options->t == 1 && options->r == 1)
 			insert_revert_time(&new_list, tmp);
 		else if (options->t == 1)
 			insert_time_sorted(&new_list, tmp);

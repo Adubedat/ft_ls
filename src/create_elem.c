@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/19 18:01:34 by adubedat          #+#    #+#             */
-/*   Updated: 2016/09/26 18:13:50 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/09/27 18:10:12 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int	test_lnk(char *join, char *name, t_op *o, t_files **new)
 		return (4);
 }
 
-void		create_new_elem(t_op *o, char	*name)
+void		create_new_elem(t_op *o, char *name)
 {
 	t_files		*new;
 	char		*join;
@@ -63,7 +63,7 @@ void		create_new_elem(t_op *o, char	*name)
 	if ((o->path == NULL && lstat(name, &(new->check)) == -1)
 	|| (o->path != NULL && lstat(ft_strjoin(join, name), &(new->check)) == -1))
 		new->type = -1;
-	else if ((S_ISCHR(new->check.st_mode) || S_ISBLK(new->check.st_mode) 
+	else if ((S_ISCHR(new->check.st_mode) || S_ISBLK(new->check.st_mode)
 	|| S_ISSOCK(new->check.st_mode) || S_ISFIFO(new->check.st_mode)) && ok == 1)
 		new->type = test_blk_chr(new->check);
 	else if (S_ISLNK(new->check.st_mode) && ok == 1)
@@ -80,7 +80,8 @@ void		create_new_elem(t_op *o, char	*name)
 	free(join);
 }
 
-/* -1 = wrong file
+/*
+** -1 = wrong file
 ** 0 = Directory
 ** 1 = Normal file
 ** 2 = File to clean

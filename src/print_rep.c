@@ -6,13 +6,13 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 22:42:15 by adubedat          #+#    #+#             */
-/*   Updated: 2016/09/11 19:50:15 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/09/27 18:11:34 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static void	get_rep_files(char *rep, t_op *o)
+static void		get_rep_files(char *rep, t_op *o)
 {
 	DIR				*dir;
 	struct dirent	*file;
@@ -74,7 +74,6 @@ void			print_rep(t_op options)
 			get_rep_files(o.path, &o);
 			if (options.maj_r == 1)
 				print_rep(o);
-		//	free_options(&o);
 		}
 		tmp = tmp->next;
 	}

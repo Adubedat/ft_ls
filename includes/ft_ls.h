@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/24 17:35:46 by adubedat          #+#    #+#             */
-/*   Updated: 2016/09/26 17:59:37 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/09/27 15:38:02 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ typedef struct		s_len
 {
 	int				blk;
 	int				lnk;
-	int				owner;
-	int				group;
+	size_t			owner;
+	size_t			group;
 	int				bytes;
 	int				minor;
 	int				major;

@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/11 15:30:37 by adubedat          #+#    #+#             */
-/*   Updated: 2016/09/26 18:12:33 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/09/27 18:16:11 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static t_len	count_len(t_files *files)
 	{
 		tmp->gid = getgrgid(tmp->check.st_gid);
 		tmp->uid = getpwuid(tmp->check.st_uid);
-		len.blk  = len.blk + tmp->check.st_blocks;
+		len.blk = len.blk + tmp->check.st_blocks;
 		if (ft_intlen(tmp->check.st_nlink) > len.lnk)
 			len.lnk = ft_intlen(tmp->check.st_nlink);
 		if (ft_strlen(tmp->uid->pw_name) > len.owner)

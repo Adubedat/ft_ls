@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/28 15:35:14 by adubedat          #+#    #+#             */
-/*   Updated: 2016/07/28 18:38:24 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/09/27 18:14:44 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void		insert_time_sorted(t_files **new, t_files *elem)
 		return ;
 	}
 	while (tmp->next != NULL && compare_time(tmp->next, elem) == 0)
-	   tmp = tmp->next;
+		tmp = tmp->next;
 	elem->next = tmp->next;
 	tmp->next = elem;
 }
@@ -77,7 +77,7 @@ void		insert_revert_time(t_files **new, t_files *elem)
 		return ;
 	}
 	while (tmp->next != NULL && compare_revert_time(tmp->next, elem) == 0)
-	   tmp = tmp->next;
+		tmp = tmp->next;
 	elem->next = tmp->next;
 	tmp->next = elem;
 }

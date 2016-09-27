@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 15:50:41 by adubedat          #+#    #+#             */
-/*   Updated: 2016/09/11 21:33:19 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/09/27 18:13:40 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int			count_files(t_op options, int *len)
 {
-	int 	file_nbr;
+	int		file_nbr;
 	t_files	*tmp;
 	int		temp;
 
@@ -33,7 +33,7 @@ int			count_files(t_op options, int *len)
 	return (file_nbr);
 }
 
-static char *fill_tab_elem(t_op o, t_files **tmp)
+static char	*fill_tab_elem(t_op o, t_files **tmp)
 {
 	char	*tab;
 
@@ -48,23 +48,23 @@ static char *fill_tab_elem(t_op o, t_files **tmp)
 	return (tab);
 }
 
-static char	***fill_tab(t_op o, int l, int L, int mod)
+static char	***fill_tab(t_op o, int l, int ll, int mod)
 {
 	t_files			*tmp;
 	int				j;
 	int				k;
-	char 			***tab;
+	char			***tab;
 
 	j = 0;
 	tmp = o.files;
 	if (mod == 0)
-		L -= 1;
+		ll -= 1;
 	tab = (char***)malloc(sizeof(char**) * l + 1);
 	while (j < l)
 	{
 		k = -1;
-		tab[j] = (char**)malloc(sizeof(char*) * L + 1);
-		while (++k < L)
+		tab[j] = (char**)malloc(sizeof(char*) * ll + 1);
+		while (++k < ll)
 		{
 			tab[j][k] = NULL;
 			if (tmp != NULL)
@@ -92,12 +92,11 @@ static void	display_tab(char ***tab, int len)
 			if (tab[i][j])
 				ft_printf("%-*s", len, tab[i][j]);
 			else
-				break;
+				break ;
 		}
 		if (tab[0][j])
 			ft_putchar('\n');
 	}
-	//////////// func free_tab
 }
 
 void		print_files(t_op options)

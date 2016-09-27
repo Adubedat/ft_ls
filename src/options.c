@@ -6,13 +6,13 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 14:09:13 by adubedat          #+#    #+#             */
-/*   Updated: 2016/07/26 19:28:13 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/09/27 18:10:56 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	initialize_options(t_op *options)
+void		initialize_options(t_op *options)
 {
 	options->l = 0;
 	options->r = 0;
@@ -68,7 +68,7 @@ static void	get_files(int i, t_op *options, int argc, char **argv)
 		create_new_elem(options, argv[i++]);
 }
 
-t_op	get_options(int argc, char **argv)
+t_op		get_options(int argc, char **argv)
 {
 	int			i;
 	int			j;
