@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 15:50:41 by adubedat          #+#    #+#             */
-/*   Updated: 2016/09/28 16:50:05 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/09/28 20:23:40 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ static char	*fill_tab_elem(t_op o, t_files **tmp)
 	if ((*tmp) == NULL)
 		return (tab);
 	tab = ft_strdup((*tmp)->file_name);
+	if (o.p == 1 && (*tmp)->type == 0)
+		tab = ft_strjoin_free_s1(tab, "/");
 	(*tmp) = (*tmp)->next;
 	return (tab);
 }

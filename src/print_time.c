@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/26 16:57:28 by adubedat          #+#    #+#             */
-/*   Updated: 2016/09/28 18:03:15 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/09/28 20:24:07 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,12 @@ void	print_time(t_files *tmp, t_op options)
 	else if (options.u == 0 && options.c == 1)
 		temp = ctime(&(tmp->check.st_ctime));
 	time_char = ft_strsub(temp, 4, 7);
-	if (actual_date - tmp->check.st_mtimespec.tv_sec > 15790000)
+	if ((options.u == 0 && options.c == 0
+		&& actual_date - tmp->check.st_mtimespec.tv_sec > 15790000)
+		|| (options.u == 1 && options.c == 0
+		&& actual_date - tmp->check.st_atimespec.tv_sec > 15790000)
+		|| (options.u == 0 && options.c == 1
+		&& actual_date - tmp->check.st_ctimespec.tv_sec > 15790000))
 		time_char = ft_strjoin_free_s1(time_char, ft_strsub(temp, 19, 5));
 	else
 		time_char = ft_strjoin_free_s1(time_char, ft_strsub(temp, 11, 5));

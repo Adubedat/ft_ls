@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/19 17:23:48 by adubedat          #+#    #+#             */
-/*   Updated: 2016/09/28 17:52:24 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/09/28 20:10:08 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,10 @@ void	flag_options2(t_op *options, char c)
 		options->u = 0;
 	}
 	else if (c == '1')
+	{
 		options->one = 1;
+		options->l = 0;
+	}
 	else if (c == 'p')
 		options->p = 1;
 }
