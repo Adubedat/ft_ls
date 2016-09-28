@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 22:42:15 by adubedat          #+#    #+#             */
-/*   Updated: 2016/09/27 18:11:34 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/09/28 16:14:56 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,10 @@ void			print_rep(t_op options)
 				ft_printf("\n%s:\n", o.path);
 			get_rep_files(o.path, &o);
 			if (options.maj_r == 1)
+			{
 				print_rep(o);
+				free_options(&o);
+			}
 		}
 		tmp = tmp->next;
 	}

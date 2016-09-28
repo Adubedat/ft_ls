@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/24 17:35:46 by adubedat          #+#    #+#             */
-/*   Updated: 2016/09/27 15:38:02 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/09/28 16:05:32 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void				print_files_l(t_op options);
 void				copy_options(t_op *o, t_op options, char *name);
 void				print_rep(t_op options);
 int					count_files(t_op options, int *len);
-void				free_options(t_op *options);
+void				free_options(t_op *option);
 void				insert_sorted(t_files **new, t_files *elem);
 void				insert_revert_sorted(t_files **new, t_files *elem);
 void				insert_time_sorted(t_files **new, t_files *elem);

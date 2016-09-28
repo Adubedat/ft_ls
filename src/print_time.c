@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/26 16:57:28 by adubedat          #+#    #+#             */
-/*   Updated: 2016/09/27 17:00:47 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/09/28 16:21:32 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ void	print_time(t_files *tmp)
 void	print_name(t_files *tmp)
 {
 	if (tmp->type == 3 || tmp->type == 4)
+	{
 		ft_printf("%s -> %s\n", tmp->file_name, tmp->link);
+		free(tmp->link);
+	}
 	else
 		ft_printf("%s\n", tmp->file_name);
 }
