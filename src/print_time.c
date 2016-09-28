@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/26 16:57:28 by adubedat          #+#    #+#             */
-/*   Updated: 2016/09/28 17:59:45 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/09/28 18:03:15 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	print_time(t_files *tmp, t_op options)
 	actual_date = time(NULL);
 	if (options.u == 0 && options.c == 0)
 		temp = ctime(&(tmp->check.st_mtime));
-	else if (options.u == 1 && options.c  == 0)
+	else if (options.u == 1 && options.c == 0)
 		temp = ctime(&(tmp->check.st_atime));
 	else if (options.u == 0 && options.c == 1)
 		temp = ctime(&(tmp->check.st_ctime));
