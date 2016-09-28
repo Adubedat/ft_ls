@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/11 15:30:37 by adubedat          #+#    #+#             */
-/*   Updated: 2016/09/27 18:16:11 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/09/28 16:34:01 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,13 @@ static t_len	count_len(t_files *files)
 
 static void		print_files_l2(t_len len, t_files *tmp)
 {
+	if (len.major != 0)
+	{
+		if (tmp->type == 5 || tmp->type == 6)
+			ft_printf(" %*d, ", len.major, major(tmp->check.st_rdev));
+		else
+			ft_printf(" %*s  ", len.major, " ");
+	}
 	if (len.minor != 0)
 	{
 		if (tmp->type == 5 || tmp->type == 6)
@@ -92,15 +99,10 @@ void			print_files_l(t_op options)
 		if (options.flag == 1 || (tmp->type != 0 && tmp->type != 3))
 		{
 			print_type(tmp);
-			ft_printf("%-*d%-*s%-*s", len.lnk + 1, tmp->check.st_nlink,
-			len.owner + 2, tmp->uid->pw_name, len.group + 2, tmp->gid->gr_name);
-			if (len.major != 0)
-			{
-				if (tmp->type == 5 || tmp->type == 6)
-					ft_printf(" %*d, ", len.major, major(tmp->check.st_rdev));
-				else
-					ft_printf(" %*s  ", len.major, " ");
-			}
+			ft_printf("%-*d", len.lnk + 1, tmp->check.st_nlink);
+			if (options.g == 0)
+				ft_printf("%-*s", len.owner + 2, tmp->uid->pw_name);
+			ft_printf("%-*s",  len.group + 2, tmp->gid->gr_name);
 			print_files_l2(len, tmp);
 		}
 		tmp = tmp->next;
