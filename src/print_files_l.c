@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/11 15:30:37 by adubedat          #+#    #+#             */
-/*   Updated: 2016/09/28 16:34:01 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/09/28 17:57:23 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static t_len	count_len(t_files *files)
 	return (len);
 }
 
-static void		print_files_l2(t_len len, t_files *tmp)
+static void		print_files_l2(t_len len, t_files *tmp, t_op options)
 {
 	if (len.major != 0)
 	{
@@ -81,8 +81,8 @@ static void		print_files_l2(t_len len, t_files *tmp)
 	}
 	else
 		ft_printf("%*d ", len.bytes, tmp->check.st_size);
-	print_time(tmp);
-	print_name(tmp);
+	print_time(tmp, options);
+	print_name(tmp, options);
 }
 
 void			print_files_l(t_op options)
@@ -102,8 +102,8 @@ void			print_files_l(t_op options)
 			ft_printf("%-*d", len.lnk + 1, tmp->check.st_nlink);
 			if (options.g == 0)
 				ft_printf("%-*s", len.owner + 2, tmp->uid->pw_name);
-			ft_printf("%-*s",  len.group + 2, tmp->gid->gr_name);
-			print_files_l2(len, tmp);
+			ft_printf("%-*s", len.group + 2, tmp->gid->gr_name);
+			print_files_l2(len, tmp, options);
 		}
 		tmp = tmp->next;
 	}

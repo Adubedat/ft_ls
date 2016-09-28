@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 14:09:13 by adubedat          #+#    #+#             */
-/*   Updated: 2016/09/28 16:49:26 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/09/28 17:53:27 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ void		initialize_options(t_op *options)
 	options->maj_r = 0;
 	options->a = 0;
 	options->t = 0;
-	options->maj_g = 0;
 	options->u = 0;
 	options->g = 0;
-	options->d = 0;
+	options->c = 0;
+	options->p = 0;
 	options->one = 0;
 	options->flag = 0;
 	options->path = NULL;
@@ -31,7 +31,7 @@ void		initialize_options(t_op *options)
 
 static void	error_option(char c)
 {
-	ft_printf("ls: illegal option -- %c\nusage: ls [-lrRatgGud1] ", c);
+	ft_printf("ls: illegal option -- %c\nusage: ls [-lrRatguc1p] ", c);
 	ft_putendl("[file ...]");
 	exit(1);
 }
@@ -48,16 +48,17 @@ static void	flag_options(t_op *options, char c)
 		options->a = 1;
 	else if (c == 't')
 		options->t = 1;
-	else if (c == 'G')
-		options->maj_g = 1;
 	else if (c == 'u')
+	{
 		options->u = 1;
+		options->c = 0;
+	}
 	else if (c == 'g')
+	{
 		options->g = 1;
-	else if (c == 'd')
-		options->d = 1;
-	else if (c == '1')
-		options->one = 1;
+		options->l = 1;
+	}
+	flag_options2(options, c);
 }
 
 static void	get_files(int i, t_op *options, int argc, char **argv)
@@ -87,7 +88,7 @@ t_op		get_options(int argc, char **argv)
 		j++;
 		while (argv[i][++j])
 		{
-			if (ft_strchr("lrRatGugd1", argv[i][j]) == NULL)
+			if (ft_strchr("lrRatucg1p", argv[i][j]) == NULL)
 				error_option(argv[i][j]);
 			flag_options(&options, argv[i][j]);
 		}

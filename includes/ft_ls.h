@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/24 17:35:46 by adubedat          #+#    #+#             */
-/*   Updated: 2016/09/28 16:48:25 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/09/28 17:58:48 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ typedef struct		s_options
 	int				maj_r;
 	int				a;
 	int				t;
-	int				maj_g;
 	int				u;
+	int				c;
 	int				g;
-	int				d;
+	int				p;
 	int				one;
 	int				flag;
 	char			*path;
@@ -65,16 +65,17 @@ void				create_new_elem(t_op *options, char *name);
 void				sort(t_op *options);
 void				print_files(t_op options);
 void				print_type(t_files *tmp);
-void				print_time(t_files *tmp);
-void				print_name(t_files *tmp);
+void				print_time(t_files *tmp, t_op options);
+void				print_name(t_files *tmp, t_op options);
 void				print_files_l(t_op options);
 void				copy_options(t_op *o, t_op options, char *name);
 void				print_rep(t_op options);
 int					count_files(t_op options, int *len);
 void				free_options(t_op *option);
+void				flag_options2(t_op *options, char c);
 void				insert_sorted(t_files **new, t_files *elem);
 void				insert_revert_sorted(t_files **new, t_files *elem);
-void				insert_time_sorted(t_files **new, t_files *elem);
-void				insert_revert_time(t_files **new, t_files *elem);
+void				insert_time_sorted(t_files **new, t_files *elem, t_op o);
+void				insert_revert_time(t_files **new, t_files *elem, t_op o);
 
 #endif

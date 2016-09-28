@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/10 23:09:25 by adubedat          #+#    #+#             */
-/*   Updated: 2016/09/27 18:15:55 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/09/28 17:40:41 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,9 +106,9 @@ void			sort(t_op *options)
 		next = tmp->next;
 		tmp->next = NULL;
 		if (options->t == 1 && options->r == 1)
-			insert_revert_time(&new_list, tmp);
+			insert_revert_time(&new_list, tmp, *options);
 		else if (options->t == 1)
-			insert_time_sorted(&new_list, tmp);
+			insert_time_sorted(&new_list, tmp, *options);
 		else if (options->r == 1)
 			insert_revert_sorted(&new_list, tmp);
 		else
