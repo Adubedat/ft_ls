@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/19 17:23:48 by adubedat          #+#    #+#             */
-/*   Updated: 2016/07/26 17:18:50 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/09/28 16:49:43 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	copy_options(t_op *o, t_op options, char *name)
 	o->t = options.t;
 	o->maj_g = options.maj_g;
 	o->u = options.u;
-	o->f = options.f;
 	o->g = options.g;
 	o->d = options.d;
+	o->one = options.one;
 	o->flag = 1;
 	if (options.path != NULL)
 	{

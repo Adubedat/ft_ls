@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 14:09:13 by adubedat          #+#    #+#             */
-/*   Updated: 2016/09/27 18:10:56 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/09/28 16:49:26 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void		initialize_options(t_op *options)
 	options->t = 0;
 	options->maj_g = 0;
 	options->u = 0;
-	options->f = 0;
 	options->g = 0;
 	options->d = 0;
+	options->one = 0;
 	options->flag = 0;
 	options->path = NULL;
 	options->files = NULL;
@@ -31,7 +31,7 @@ void		initialize_options(t_op *options)
 
 static void	error_option(char c)
 {
-	ft_printf("ls: illegal option -- %c\nusage: ls [-lrRatgGufd] ", c);
+	ft_printf("ls: illegal option -- %c\nusage: ls [-lrRatgGud1] ", c);
 	ft_putendl("[file ...]");
 	exit(1);
 }
@@ -52,12 +52,12 @@ static void	flag_options(t_op *options, char c)
 		options->maj_g = 1;
 	else if (c == 'u')
 		options->u = 1;
-	else if (c == 'f')
-		options->f = 1;
 	else if (c == 'g')
 		options->g = 1;
 	else if (c == 'd')
 		options->d = 1;
+	else if (c == '1')
+		options->one = 1;
 }
 
 static void	get_files(int i, t_op *options, int argc, char **argv)
@@ -87,7 +87,7 @@ t_op		get_options(int argc, char **argv)
 		j++;
 		while (argv[i][++j])
 		{
-			if (ft_strchr("lrRatGufgd", argv[i][j]) == NULL)
+			if (ft_strchr("lrRatGugd1", argv[i][j]) == NULL)
 				error_option(argv[i][j]);
 			flag_options(&options, argv[i][j]);
 		}

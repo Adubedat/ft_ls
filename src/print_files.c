@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/11 15:50:41 by adubedat          #+#    #+#             */
-/*   Updated: 2016/09/27 18:13:40 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/09/28 16:50:05 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static char	***fill_tab(t_op o, int l, int ll, int mod)
 	return (tab);
 }
 
-static void	display_tab(char ***tab, int len)
+static void	display_tab(char ***tab, int len, t_op o)
 {
 	int	i;
 	int	j;
@@ -90,11 +90,15 @@ static void	display_tab(char ***tab, int len)
 		while (tab[++i])
 		{
 			if (tab[i][j])
+			{
 				ft_printf("%-*s", len, tab[i][j]);
+				if (o.one == 1)
+					ft_putchar('\n');
+			}
 			else
 				break ;
 		}
-		if (tab[0][j])
+		if (tab[0][j] && o.one == 0)
 			ft_putchar('\n');
 	}
 }
@@ -115,5 +119,5 @@ void		print_files(t_op options)
 		size.ws_col = len;
 	tab = fill_tab(options, size.ws_col / len,
 			1 + file_nbr / (size.ws_col / len), file_nbr % (size.ws_col / len));
-	display_tab(tab, len);
+	display_tab(tab, len, options);
 }

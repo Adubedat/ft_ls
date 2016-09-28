@@ -6,7 +6,7 @@
 /*   By: adubedat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/24 17:35:46 by adubedat          #+#    #+#             */
-/*   Updated: 2016/09/28 16:05:32 by adubedat         ###   ########.fr       */
+/*   Updated: 2016/09/28 16:48:25 by adubedat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ typedef struct		s_options
 	int				t;
 	int				maj_g;
 	int				u;
-	int				f;
 	int				g;
 	int				d;
+	int				one;
 	int				flag;
 	char			*path;
 	t_files			*files;
